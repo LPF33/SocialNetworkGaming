@@ -1,0 +1,336 @@
+:root {
+    --border-color : rgb(230, 87, 87);
+    --cell-color: cornsilk;
+    --cell-hint: rgb(92, 89, 252);
+    --cell-selected: rgb(243, 114, 39);
+    --cell-choose: rgb(155, 132, 101);
+    --cell-correct : rgb(120, 196, 120);
+    --cell-width : 4vw;
+    --button-width : 10vw;
+    --p-fontsize : 5vw;
+    --cell-counter: 1.5vw;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-sizing: border-box;
+    font-family:'Sen', sans-serif;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(240, 238, 114);
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
+}
+
+p{
+    font-size: var(--p-fontsize);
+}
+
+#startWindow {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index:3;
+}
+
+.windowbutton {
+    width: var(--button-width);
+    height: var(--button-width);;
+    background-color: var(--cell-color);
+    text-align: center;
+    line-height: var(--button-width);;
+    font-size: calc(var(--cell-width) / 2 );
+    border-radius: 10px;
+    margin-top: 10px;
+    cursor: pointer; 
+    outline: none;
+}
+
+#pauseWindow {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    display: none;
+    justify-content: space-around;
+    align-items: center;
+    z-index:3;
+}
+
+#manual {
+    display: none;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    z-index:4;
+}
+
+.manualDescription{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 1vw;
+}
+
+.manualImg {        
+    width: calc(var(--cell-width) * 1.1);
+    margin: 5px;
+}
+
+.manualImg2 {
+    width: calc(var(--cell-width) * 5);
+    margin: 5px;
+}
+
+#manualExit {
+    position: absolute;
+    top: 50px;
+    left: 10px;
+}
+
+.manualflex {
+    display: flex;
+    align-items: center;
+}
+
+#helpSelectionNumber {
+    background-image: url("./images/allNumbers.PNG");
+    background-size: calc(var(--button-width) / 3);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#notes {
+    background-image: url("./images/highlightNumber.PNG");
+    background-size: calc(var(--button-width) / 3);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#endpause {
+    display: none;
+    background-color: rgb(240, 240, 83);
+}
+
+#newgame {
+    line-height: 100%;
+}
+
+#time {
+    display: flex;
+    font-size: calc(var(--cell-width) / 2);
+    justify-content: center;
+    align-items: center;
+}
+
+#pause {
+    width: calc(var(--cell-width) / 2);
+    height: calc(var(--cell-width) / 2);
+    background-color: var(--cell-color);
+    text-align: center;
+    font-size: calc(var(--cell-width) / 3.5);
+    font-weight: bold;
+    border-radius: 100%;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+#sudokuArea {
+    display: grid;    
+    grid-template: repeat(9, var(--cell-width)) / repeat(9, var(--cell-width));
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.cell {
+    width: var(--cell-width);
+    height: var(--cell-width);
+    background-color: var(--cell-color);
+    text-align: center;
+    line-height: var(--cell-width);
+    font-size: calc(var(--cell-width) / 2 );
+    border-radius: 10px;
+}
+
+.numbers {       
+    border: 1px solid var(--border-color);
+}
+
+.numbersBorderRight {  
+    border-right: 4px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.numbersBorderBottom {  
+    border-bottom: 4px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+}
+
+.numbersBorderRightBottom {  
+    border-bottom: 4px solid var(--border-color);
+    border-right: 4px solid var(--border-color);
+    border-top: 1px solid var(--border-color);
+    border-left: 1px solid var(--border-color);
+}
+
+.cellselected {
+    color: var(--cell-selected);
+}
+
+.selectNumber {
+    display: grid; 
+    grid-template: repeat(3, calc(var(--cell-width) / 2)) / repeat(3, calc(var(--cell-width) / 2)); 
+    transform: translate(calc(var(--cell-width) / -4),calc(var(--cell-width) / -4));
+    color: black;
+    position: relative;
+    user-select: none;
+    z-index:2; 
+}
+
+.selectNumber>div {    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--cell-choose);
+    border: 0.1px dashed black;
+    border-radius: 100%;
+    font-size: calc(var(--cell-width) / 4);  
+    position: relative;
+    z-index:2;   
+}
+
+.selectNumber .selectBlink:hover {
+    background-color: rgb(248, 246, 138);
+    cursor: pointer;
+}
+
+.selectNumber .selecttransparent {
+    opacity: 0.5;
+}
+
+.makeNote {
+    display: grid; 
+    grid-template: repeat(3, calc(var(--cell-width) / 3)) / repeat(3, calc(var(--cell-width) / 3));
+    color: black;
+    line-height: calc(var(--cell-width) / 3);
+    font-size: calc(var(--cell-width) / 3);
+    position: relative;
+}
+
+#counterSection {
+    display: flex;
+    margin-top: 10px;
+    position: relative;
+    z-index:1;
+}
+
+.counterCell{
+    position: relative;
+    border: 3px solid var(--border-color);
+}
+
+.counter {
+    position: absolute;
+    top:1px;
+    right:1px;
+    width: var(--cell-counter);
+    height: var(--cell-counter);
+    border-radius: 100%;
+    line-height: var(--cell-counter);
+    font-size: calc(var(--cell-counter) / 1.5);
+    color: rgb(240, 241, 163);
+    background-color: var(--border-color);
+}
+
+.highlight {
+    background-color: rgb(213, 248, 58);
+}
+
+#buttons {
+    position: absolute;
+    top: 10%;
+    left: calc(50% - 28vw);
+    display: flex;
+    flex-direction: column;
+}
+
+#buttons button {
+    width: calc(var(--cell-width) * 1.5);
+    height: calc(var(--cell-width) * 1.5);
+    border-radius: 100%;
+    background-color: var(--cell-color);
+    font-size: calc(var(--cell-width) / 3);
+    border: 1px solid var(--border-color);
+    margin-bottom: 10px;
+    cursor: pointer;
+    outline: none;
+}
+
+.cellhint {
+    color: var(--cell-hint);
+}
+
+.cellwrong {
+    transition: 1s background-color ease-in;
+    background-color: rgb(240, 134, 134);
+}
+
+.cellcorrect {
+    transition: 1s font-weight linear;
+    color: var(--cell-correct);
+    font-weight: bold;
+}
+
+#endGame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index:3;
+}
+
+@media screen and (orientation: portrait ) and (max-width:1024px){
+    :root {
+        --cell-width: 10vw;
+        --button-width: 25vw;
+        --p-fontsize: 8vw;
+        --cell-counter: 3.75vw;
+    }
+
+    #startWindow, #pauseWindow {
+        flex-direction: column;
+    }
+
+    #buttons {
+        position: absolute;
+        top:80%;
+        left: 50%;
+        transform: translateX(-50%);
+        flex-direction: row;        
+    }
+
+    #buttons button {
+        margin: 30px 10px 0 0 ;
+    }
+}
